@@ -1,8 +1,18 @@
 import axios from 'axios';
 
-const baseURL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/+$/, '');
+const getBaseURL = () => {
+  if (import.meta.env.VITE_API_URL) {
+    const url = import.meta.env.VITE_API_URL.replace(/\/+$/, '');
+    return url.endsWith('/api') ? url : url + '/api';
+  }
+  if (import.meta.env.PROD) {
+    return 'https://driverfleet-server.vercel.app/api';
+  }
+  return 'http://localhost:5000/api';
+};
+
 const API = axios.create({
-  baseURL: baseURL.endsWith('/api') ? baseURL : baseURL + '/api',
+  baseURL: getBaseURL(),
   withCredentials: true,
 });
 
