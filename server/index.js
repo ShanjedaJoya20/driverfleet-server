@@ -31,6 +31,13 @@ if (process.env.VERCEL_BRANCH_URL) {
   allowedOrigins.push(`https://${process.env.VERCEL_BRANCH_URL}`);
 }
 
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  next();
+});
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({

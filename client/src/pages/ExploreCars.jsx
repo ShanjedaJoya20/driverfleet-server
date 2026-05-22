@@ -17,6 +17,7 @@ export default function ExploreCars() {
     const params = new URLSearchParams();
     if (search) params.append('search', search);
     if (type !== 'All') params.append('type', type);
+    params.append('_t', Date.now());
     API.get(`/cars?${params.toString()}`)
       .then(({ data }) => setCars(Array.isArray(data) ? data : []))
       .catch(() => setCars([]))

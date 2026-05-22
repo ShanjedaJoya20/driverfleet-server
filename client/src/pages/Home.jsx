@@ -11,7 +11,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    API.get('/cars')
+    API.get(`/cars?_t=${Date.now()}`)
       .then(({ data }) => setCars(Array.isArray(data) ? data.filter(c => c.availability).slice(0, 6) : []))
       .catch(() => setCars([]))
       .finally(() => setLoading(false));
