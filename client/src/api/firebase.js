@@ -2,12 +2,13 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB8dEsample_drivefleet_key",
-  authDomain: "drivefleet-ca.firebaseapp.com",
-  projectId: "drivefleet-ca",
-  storageBucket: "drivefleet-ca.firebasestorage.app",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abc123def456",
+  apiKey: "AIzaSyBg4r56_YRe96I2hs335oJuFEHv0XZKp1A",
+  authDomain: "drive-fleet-e6a44.firebaseapp.com",
+  projectId: "drive-fleet-e6a44",
+  storageBucket: "drive-fleet-e6a44.firebasestorage.app",
+  messagingSenderId: "379327451202",
+  appId: "1:379327451202:web:6b094d58e2058ac1449ddb",
+  measurementId: "G-JLPMQ8VDM1",
 };
 
 const app = initializeApp(firebaseConfig);
