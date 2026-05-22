@@ -18,8 +18,8 @@ export default function ExploreCars() {
     if (search) params.append('search', search);
     if (type !== 'All') params.append('type', type);
     API.get(`/cars?${params.toString()}`)
-      .then(({ data }) => setCars(data))
-      .catch(() => { })
+      .then(({ data }) => setCars(Array.isArray(data) ? data : []))
+      .catch(() => setCars([]))
       .finally(() => setLoading(false));
   }, [search, type]);
 

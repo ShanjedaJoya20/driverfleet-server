@@ -13,8 +13,8 @@ export default function MyAddedCars() {
 
   const fetchCars = () => {
     API.get('/cars/my-cars/all')
-      .then(({ data }) => setCars(data))
-      .catch(() => { })
+      .then(({ data }) => setCars(Array.isArray(data) ? data : []))
+      .catch(() => setCars([]))
       .finally(() => setLoading(false));
   };
 

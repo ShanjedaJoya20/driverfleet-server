@@ -12,8 +12,8 @@ export default function Home() {
 
   useEffect(() => {
     API.get('/cars')
-      .then(({ data }) => setCars(data.filter(c => c.availability).slice(0, 6)))
-      .catch(() => { })
+      .then(({ data }) => setCars(Array.isArray(data) ? data.filter(c => c.availability).slice(0, 6) : []))
+      .catch(() => setCars([]))
       .finally(() => setLoading(false));
   }, []);
 

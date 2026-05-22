@@ -10,8 +10,8 @@ export default function MyBookings() {
 
   useEffect(() => {
     API.get('/bookings/my')
-      .then(({ data }) => setBookings(data))
-      .catch(() => { })
+      .then(({ data }) => setBookings(Array.isArray(data) ? data : []))
+      .catch(() => setBookings([]))
       .finally(() => setLoading(false));
   }, []);
 
