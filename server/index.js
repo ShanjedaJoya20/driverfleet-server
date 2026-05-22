@@ -61,8 +61,13 @@ async function connectDB() {
   return cached.conn;
 }
 
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', db: cached.conn ? 'connected' : 'disconnected' });
+app.get('/api/health', async (req, res) => {
+  try {
+    await connectDB();
+    res.json({ status: 'ok', db: 'connected' });
+  } catch (err) {
+    res.json({ status: 'ok', db: 'disconnected', error: err.message });
+  }
 });
 
 app.use(async (req, res, next) => {
