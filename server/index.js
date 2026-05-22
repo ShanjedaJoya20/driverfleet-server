@@ -52,18 +52,18 @@ if (!cached) {
 async function connectDB() {
   if (cached.conn) return cached.conn;
   if (!cached.promise) {
-    const { MongoClient, ServerApiVersion } = require('mongodb');
     cached.promise = mongoose.connect(process.env.MONGODB_URI, {
-      serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-      }
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 5000,
     }).then((m) => m);
   }
   cached.conn = await cached.promise;
   return cached.conn;
 }
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', db: cached.conn ? 'connected' : 'disconnected' });
+});
 
 app.use(async (req, res, next) => {
   try {
@@ -78,10 +78,6 @@ app.use(async (req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/cars', carRoutes);
 app.use('/api/bookings', bookingRoutes);
-
-app.get('/', (req, res) => {
-  res.json({ message: 'DriveFleet API is running' });
-});
 
 if (!process.env.VERCEL) {
   app.listen(PORT, () => {
